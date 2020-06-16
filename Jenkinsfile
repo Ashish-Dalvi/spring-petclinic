@@ -1,9 +1,13 @@
 pipeline {
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    }
     agent any
+
     stages {
         stage ('Checkout') {
           steps {
-            git 'https://github.com/Ashish-Dalvi/spring-petclinic.git'
+            git 'https://github.com/effectivejenkins/spring-petclinic.git'
           }
         }
         stage('Build') {
@@ -13,5 +17,5 @@ pipeline {
                 junit '**/target/surefire-reports/TEST-*.xml'
 		}
 	}
-   }
+    }
 }
